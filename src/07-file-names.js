@@ -13,8 +13,29 @@
  * the output should be ["file", "file(1)", "image", "file(1)(1)", "file(2)"]
  *
  */
+
+function pushIfNotExist(arr, element) {
+  if (!arr.includes(element)) {
+    arr.push(element);
+    return true;
+  }
+
+  return false;
+}
+
 function renameFiles(names) {
-  return names;
+  const result = [];
+  names.forEach((name) => {
+    let count = 0;
+    let n = name;
+
+    while (!pushIfNotExist(result, n)) {
+      count++;
+      n = `${name}(${count})`;
+    }
+  });
+
+  return result;
 }
 
 module.exports = renameFiles;
